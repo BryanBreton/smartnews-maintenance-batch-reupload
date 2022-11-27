@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration debug="false">
+
+	<Appenders>
+
+		<!-- ***********************************************************************
+			Définition des appenders  applicatifs
+		*********************************************************************-->
+
+		<Console name="consoleAppender" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d [%t] %-5p %c - %m%n"/>
+		</Console>
+
+		<RollingFile name="SmartnewsMaintenanceBatchAppender"  fileName="../logs/SmartnewsMaintenanceBatch.log"
+					 filePattern="../logs/v.log.%i">
+			<PatternLayout pattern="%d [%t] %-5p %c - %m%n"/>
+			<Policies>
+        		<SizeBasedTriggeringPolicy size="10MB"/>
+      		</Policies>
+      		<DefaultRolloverStrategy max="10"/>
+		</RollingFile>
+
+	</Appenders>
+
+	<Loggers>
+
+		<!-- ***********************************************************************
+			definition du root pour ne pas perdre de logs
+		*********************************************************************-->
+
+		<Root level="WARN">
+			<AppenderRef ref="consoleAppender" />
+			<AppenderRef ref="SmartnewsMaintenanceBatchAppender" />
+		</Root>
+
+		<!-- ***********************************************************************
+			definition du logger Applicatif
+		*********************************************************************-->
+		<Logger name="fr.su.smartnewsmaintenancebatch" level="WARN" additivity="false">
+			<AppenderRef ref="consoleAppender" />
+			<AppenderRef ref="SmartnewsMaintenanceBatchAppender" />
+		</Logger>
+
+		<!-- ***********************************************************************
+			definition des loggers  des outils
+		*********************************************************************-->
+
+		<Logger name="fr.su.back" level="WARN" additivity="false">
+			<AppenderRef ref="consoleAppender" />
+			<AppenderRef ref="SmartnewsMaintenanceBatchAppender" />
+		</Logger>
+
+	</Loggers>
+
+</Configuration>
